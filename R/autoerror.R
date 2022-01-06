@@ -30,6 +30,8 @@
 #' @importFrom grDevices pdf
 #' @import RColorBrewer
 #' @import Hmisc
+#' @import ggpubr
+#' @import ggplot2
 #' @param directory Directory including count matrix files
 #' @param input excel or csv
 #' @export
