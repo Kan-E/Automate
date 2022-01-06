@@ -27,6 +27,7 @@
 #' @importFrom utils write.table
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
+#' @importFrom stats aov
 #' @import RColorBrewer
 #' @import Hmisc
 #' @import ggpubr
@@ -42,6 +43,8 @@ autobar <- function(directory, input = "excel"){
   files <- gsub("\\..+$", "", files)
 
   for (name in files) {
+    value <- NA
+    Row.names <- NA
     dir.create(name,showWarnings = F)
     if(input == "excel") data.file <- paste(name, '.xlsx', sep = '')
     if(input == "csv") data.file <- paste(name, '.csv', sep = '')
