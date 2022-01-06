@@ -18,7 +18,8 @@ Imports:
     dplyr (>= 1.0.7),
     ggplot2 (>= 3.3.5),
     multcomp (>= 1.4.17),
-    gdata (>= 2.18.0)
+    gdata (>= 2.18.0),
+    Hmisc (>= 4.6.0)
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
