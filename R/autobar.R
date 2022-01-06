@@ -28,10 +28,7 @@
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 #' @import RColorBrewer
-#' @import ggplot2
-#' @import ggpubr
-#' @import dplyr
-#' @import tidyr
+#' @import Hmisc
 #' @param directory Directory including count matrix files
 #' @param input excel or csv
 #' @export
