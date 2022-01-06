@@ -29,7 +29,7 @@
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 #' @import RColorBrewer
-#' @import ggpubr
+#' @import ggplot2
 #' @param directory Directory including count matrix files
 #' @param input excel or csv
 #' @export
@@ -159,10 +159,11 @@ autoerror <- function(directory, input = "excel"){
       stat.test <- stat.test %>% add_xy_position(scales = "free", step.increase = 0.1)
       image.file <- paste0(paste0(name, "/"), paste0(name, '_Welch_t-test.pdf'))
       pdf(image.file, height = pdf_size, width = pdf_size)
-      p <- ggbarplot(data,x = "sample", y = "value", scales = "free",
-                     facet.by = "Row.names", fill = "sample",
-                     add = c("mean_se", "jitter"),
-                     add.params = list(size=0.5), xlab = FALSE, legend = "none")
+      p <- ggerrorplot(data,x = "sample", y = "value",
+                       scales = "free", add = "jitter", facet.by = "Row.names",
+                       add.params = list(size=0.5), xlab = FALSE, error.plot = "errorbar")
+      p <- p + stat_summary(geom = "point", shape = 95,size = 5,
+                            col = "black", fun = "mean")
       plot(facet(p, facet.by = "Row.names",
                  panel.labs.background = list(fill = "transparent",
                                               color = "transparent"),
