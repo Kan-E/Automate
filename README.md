@@ -2,7 +2,24 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Kan-E/Automate/blob/master/LICENSE.md)
 # automate
 
-`automate` is an easy-to-use R package for automated data visualization. 
+`automate` is an easy-to-use R package for automated data visualization from count matrix files.   
+It has three simplyfied functions for creation of barplot, boxplot, and errorplot.
+The condition number is automatically recognized from count matrix file and then the static analysis is performed.
+In the case of pairwise comparison, Welch t-test is performed.
+In the case of multiple comparison, TukeyHSD and dunnett test are performed.
+
+# Input file format
+Input file format must be excel file format (.xlsx) or CSV file format (.csv).
+The cell at first column must be `Row.names`.
+Replication number is represented by underbar. Do not use it for anything else.
+<img width="890" alt="format example" src="https://user-images.githubusercontent.com/77435195/148402453-e87ce92e-fcf1-4d45-af72-e9d256366bfa.png">
+
+# Output example
+![example](https://user-images.githubusercontent.com/77435195/148407981-75873d95-eb04-458c-9a99-db769d7efa3f.png)
+Plot example (TukeyHSD)
+![example_TukeyHSD](https://user-images.githubusercontent.com/77435195/148402886-16a48e4c-8962-4066-95bc-a6d26e7fada9.png)
+Statics example (TukeyHSD)
+<img width="810" alt="result_TukeyHSD" src="https://user-images.githubusercontent.com/77435195/148403003-658bdf78-dcd9-4186-a392-8e6e5b2f7cc7.png">
 
 # Installation
 ```
