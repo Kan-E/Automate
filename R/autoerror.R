@@ -31,6 +31,8 @@
 #' @import RColorBrewer
 #' @import ggplot2
 #' @import ggpubr
+#' @import dplyr
+#' @import tidyr
 #' @param directory Directory including count matrix files
 #' @param input excel or csv
 #' @export
