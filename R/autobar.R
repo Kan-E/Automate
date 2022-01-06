@@ -28,6 +28,7 @@
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 #' @import RColorBrewer
+#' @import ggpubr
 #' @param directory Directory including count matrix files
 #' @param input excel or csv
 #' @export
