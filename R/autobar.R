@@ -131,7 +131,7 @@ autobar <- function(directory, input = "excel"){
                    add.params = list(size=0.5), xlab = FALSE, legend = "none")
     plot(facet(p, facet.by = "Row.names", panel.labs.background = list(fill = "transparent",
                                                                        color = "transparent"),
-               scales = "free", short.panel.labs = T)+ stat_pvalue_manual(stat.test,hide.ns = T, size = 3) +
+               scales = "free", short.panel.labs = T)+ stat_pvalue_manual(stat.test,hide.ns = T, size = 2) +
            theme(axis.text.x= element_text(size = 5),axis.text.y= element_text(size = 7),
                  panel.background = element_rect(fill = "transparent", size = 0.5),
                  title = element_text(size = 7),text = element_text(size = 10)))
@@ -144,7 +144,7 @@ autobar <- function(directory, input = "excel"){
                            add.params = list(size=0.5), xlab = FALSE, legend = "none")
     plot(facet(p, facet.by = "Row.names", panel.labs.background = list(fill = "transparent", color = "transparent"),
                scales = "free", short.panel.labs = T)+
-           stat_pvalue_manual(stat.test3,hide.ns = T, size = 3) +
+           stat_pvalue_manual(stat.test3,hide.ns = T, size = 2) +
            theme(axis.text.x= element_text(size = 5), axis.text.y= element_text(size = 7),
                  panel.background = element_rect(fill = "transparent", size = 0.5),
                  title = element_text(size = 7), text = element_text(size = 10)))
@@ -168,7 +168,7 @@ autobar <- function(directory, input = "excel"){
                  panel.labs.background = list(fill = "transparent",
                                               color = "transparent"),
                  scales = "free", short.panel.labs = T)+
-             stat_pvalue_manual(stat.test,hide.ns = T, size = 3) +
+             stat_pvalue_manual(stat.test,hide.ns = T, size = 2) +
              theme(axis.text.x= element_text(size = 5),
                             axis.text.y= element_text(size = 7),
                             panel.background = element_rect(fill = "transparent", size = 0.5),
