@@ -36,18 +36,7 @@ autobox <- function(directory, input = "excel"){
   if(input == "excel") files <- list.files(pattern = "*.xlsx")
   if(input == "csv") files <- list.files(pattern = "*.csv")
   files <- gsub("\\..+$", "", files)
-  if ((length(rowlist) > 81) && (length(rowlist) <= 100)) pdf_size <- 15
-  if ((length(rowlist) > 64) && (length(rowlist) <= 81)) pdf_size <- 13.5
-  if ((length(rowlist) > 49) && (length(rowlist) <= 64)) pdf_size <- 12
-  if ((length(rowlist) > 36) && (length(rowlist) <= 49)) pdf_size <- 10.5
-  if ((length(rowlist) > 25) && (length(rowlist) <= 36)) pdf_size <- 9
-  if ((length(rowlist) > 16) && (length(rowlist) <= 25)) pdf_size <- 7.5
-  if ((length(rowlist) > 12) && (length(rowlist) <= 16)) pdf_size <- 6
-  if ((length(rowlist) > 9) && (length(rowlist) <= 12)) pdf_size <- 6
-  if ((length(rowlist) > 6) && (length(rowlist) <= 9)) pdf_size <- 5
-  if ((length(rowlist) > 1) && (length(rowlist) <= 6)) pdf_size <- 4
-  if (length(rowlist) == 1) pdf_size <- 3
-  if (length(rowlist) > 100) pdf_size <- 16.5
+
   for (name in files) {
     dir.create(name,showWarnings = F)
     if(input == "excel") data.file <- paste(name, '.xlsx', sep = '')
@@ -65,6 +54,19 @@ autobox <- function(directory, input = "excel"){
     data$sample <- as.factor(data$sample)
     data$value <- as.numeric(data$value)
     data$sample <- factor(data$sample,levels=collist,ordered=TRUE)
+
+    if ((length(rowlist) > 81) && (length(rowlist) <= 100)) pdf_size <- 15
+    if ((length(rowlist) > 64) && (length(rowlist) <= 81)) pdf_size <- 13.5
+    if ((length(rowlist) > 49) && (length(rowlist) <= 64)) pdf_size <- 12
+    if ((length(rowlist) > 36) && (length(rowlist) <= 49)) pdf_size <- 10.5
+    if ((length(rowlist) > 25) && (length(rowlist) <= 36)) pdf_size <- 9
+    if ((length(rowlist) > 16) && (length(rowlist) <= 25)) pdf_size <- 7.5
+    if ((length(rowlist) > 12) && (length(rowlist) <= 16)) pdf_size <- 6
+    if ((length(rowlist) > 9) && (length(rowlist) <= 12)) pdf_size <- 6
+    if ((length(rowlist) > 6) && (length(rowlist) <= 9)) pdf_size <- 5
+    if ((length(rowlist) > 1) && (length(rowlist) <= 6)) pdf_size <- 4
+    if (length(rowlist) == 1) pdf_size <- 3
+    if (length(rowlist) > 100) pdf_size <- 16.5
 
     df <- data.frame(matrix(rep(NA, 11), nrow=1))[numeric(0), ]
     colnames(df) <- c("Row.names", "group1", "group2", "term", "null.value","Std.Error","coefficients","t.value","p.adj","xmin", "xmax")
