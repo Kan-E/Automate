@@ -19,7 +19,8 @@ Imports:
     ggplot2 (>= 3.3.5),
     multcomp (>= 1.4.17),
     gdata (>= 2.18.0),
-    Hmisc (>= 4.6.0)
+    Hmisc (>= 4.6.0),
+    RColorBrewer (>= 1.1.2)
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
