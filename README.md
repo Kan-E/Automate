@@ -1,3 +1,5 @@
+[![R-CMD-check](https://github.com/Kan-E/Automate/workflows/R-CMD-check/badge.svg)](https://github.com/Kan-E/Automate/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Kan-E/Automate/blob/master/LICENSE.md)
 # automate
 
 `automate` is an easy-to-use R package for automated data visualization. 
