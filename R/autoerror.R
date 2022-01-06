@@ -1,4 +1,4 @@
-#' Automated barplot
+#' Automated errorplot
 #'
 #' @importFrom rstatix group_by
 #' @importFrom rstatix add_xy_position
@@ -7,7 +7,7 @@
 #' @importFrom rstatix add_significance
 #' @importFrom rstatix t_test
 #' @importFrom gdata read.xls
-#' @importFrom ggpubr ggbarplot
+#' @importFrom ggpubr ggerrorplot
 #' @importFrom ggpubr stat_pvalue_manual
 #' @importFrom ggpubr facet
 #' @importFrom ggpubr mean_se_
@@ -16,6 +16,7 @@
 #' @importFrom ggplot2 scale_y_continuous
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 scale_fill_grey
+#' @importFrom ggplot2 stat_summary
 #' @importFrom tidyr gather
 #' @importFrom dplyr %>%
 #' @importFrom dplyr filter
@@ -32,7 +33,7 @@
 #' @param input excel or csv
 #' @export
 #'
-autobar <- function(directory, input = "excel"){
+autoerror <- function(directory, input = "excel"){
   setwd(directory)
   if(input == "excel") files <- list.files(pattern = "*.xlsx")
   if(input == "csv") files <- list.files(pattern = "*.csv")
@@ -75,7 +76,7 @@ autobar <- function(directory, input = "excel"){
       stat.test <- data %>% group_by(Row.names)
       stat.test <- stat.test %>% tukey_hsd(value ~ sample)
       stat.test <- stat.test %>% add_significance("p.adj")
-      stat.test <- stat.test %>% add_xy_position(scales = "free", step.increase = 0.2)
+      stat.test <- stat.test %>% add_xy_position(scales = "free", step.increase = 0.15)
       for (name2 in rowlist){
         data2 <- dplyr::filter(data, Row.names == name2)
         dun <- aov(value~sample, data2)
@@ -109,49 +110,52 @@ autobar <- function(directory, input = "excel"){
         df <- rbind(df, df2)
       }
 
-    df <- df %>% arrange(Row.names)
-    df <- df %>% group_by(Row.names)
-    stat.test2 <- data %>% group_by(Row.names)
-    stat.test2 <- stat.test2 %>% get_y_position(value ~ sample, scales = "free", step.increase = 0.15, fun = "mean_se")
-    stat.test2 <- stat.test2 %>% dplyr::filter(group1 == collist[1])
-    stat.test3 <- cbind(stat.test2,df[,-1:-3])
-    stat.test3$Row.names <- as.factor(stat.test3$Row.names)
-    stat.test3 <- stat.test3 %>% add_significance("p.adj")
+      df <- df %>% arrange(Row.names)
+      df <- df %>% group_by(Row.names)
+      stat.test2 <- data %>% group_by(Row.names)
+      stat.test2 <- stat.test2 %>% get_y_position(value ~ sample, scales = "free", step.increase = 0.1, fun = "mean_se")
+      stat.test2 <- stat.test2 %>% dplyr::filter(group1 == collist[1])
+      stat.test3 <- cbind(stat.test2,df[,-1:-3])
+      stat.test3$Row.names <- as.factor(stat.test3$Row.names)
+      stat.test3 <- stat.test3 %>% add_significance("p.adj")
 
-    image.file <- paste0(paste0(name, "/"), paste0(name, '_TukeyHSD.pdf'))
-    pdf(image.file, height = pdf_size, width = pdf_size)
-    p <- ggbarplot(data,x = "sample", y = "value", scales = "free",
-                   facet.by = "Row.names", fill = "sample",add = c("mean_se", "jitter"),
-                   add.params = list(size=0.5), xlab = FALSE, legend = "none")
-    plot(facet(p, facet.by = "Row.names", panel.labs.background = list(fill = "transparent",
-                                                                       color = "transparent"),
-               scales = "free", short.panel.labs = T)+ stat_pvalue_manual(stat.test,hide.ns = T, size = 3) +
-           theme(axis.text.x= element_text(size = 5),axis.text.y= element_text(size = 7),
-                 panel.background = element_rect(fill = "transparent", size = 0.5),
-                 title = element_text(size = 7),text = element_text(size = 10)))
-    dev.off()
-    image.file2 <- paste0(paste0(name, "/"), paste0(name, '_dunnett.pdf'))
-    pdf(image.file2, height = pdf_size, width = pdf_size)
-    p <- ggbarplot(data,x = "sample", y = "value",
-                           scales = "free", fill = "sample",
-                           add = c("mean_se", "jitter"), facet.by = "Row.names",
-                           add.params = list(size=0.5), xlab = FALSE, legend = "none")
-    plot(facet(p, facet.by = "Row.names", panel.labs.background = list(fill = "transparent", color = "transparent"),
-               scales = "free", short.panel.labs = T)+
-           stat_pvalue_manual(stat.test3,hide.ns = T, size = 3) +
-           theme(axis.text.x= element_text(size = 5), axis.text.y= element_text(size = 7),
-                 panel.background = element_rect(fill = "transparent", size = 0.5),
-                 title = element_text(size = 7), text = element_text(size = 10)))
-    dev.off()
-    test.file <- paste0(name, "/result_TukeyHSD.txt")
-    write.table(stat.test[,1:10], file = test.file, row.names = F, col.names = T, quote = F, sep = "\t")
-    dunnett_file <- paste0(name, "/result_dunnett.txt")
-    write.table(stat.test3[,-4:-5], file = dunnett_file, row.names = F, col.names = T, quote = F, sep = "\t")
+      image.file <- paste0(paste0(name, "/"), paste0(name, '_TukeyHSD.pdf'))
+      pdf(image.file, height = pdf_size, width = pdf_size)
+      p <- ggerrorplot(data,x = "sample", y = "value",
+                       scales = "free", add = "jitter", facet.by = "Row.names",
+                       add.params = list(size=0.5), xlab = FALSE, error.plot = "errorbar")
+      p <- p + stat_summary(geom = "point", shape = 95,size = 5,
+                            col = "black", fun = "mean")
+      plot(facet(p, facet.by = "Row.names", panel.labs.background = list(fill = "transparent",
+                                                                         color = "transparent"),
+                 scales = "free", short.panel.labs = T)+ stat_pvalue_manual(stat.test,hide.ns = T, size = 3) +
+             theme(axis.text.x= element_text(size = 5),axis.text.y= element_text(size = 7),
+                   panel.background = element_rect(fill = "transparent", size = 0.5),
+                   title = element_text(size = 7),text = element_text(size = 10)))
+      dev.off()
+      image.file2 <- paste0(paste0(name, "/"), paste0(name, '_dunnett.pdf'))
+      pdf(image.file2, height = pdf_size, width = pdf_size)
+      p <- ggerrorplot(data,x = "sample", y = "value",
+                     scales = "free", add = "jitter", facet.by = "Row.names",
+                     add.params = list(size=0.5), xlab = FALSE, error.plot = "errorbar")
+      p <- p + stat_summary(geom = "point", shape = 95,size = 5,
+        col = "black", fun = "mean")
+      plot(facet(p, facet.by = "Row.names", panel.labs.background = list(fill = "transparent", color = "transparent"),
+                 scales = "free", short.panel.labs = T)+
+             stat_pvalue_manual(stat.test3,hide.ns = T, size = 3) +
+             theme(axis.text.x= element_text(size = 5), axis.text.y= element_text(size = 7),
+                   panel.background = element_rect(fill = "transparent", size = 0.5),
+                   title = element_text(size = 7), text = element_text(size = 10)))
+      dev.off()
+      test.file <- paste0(name, "/result_TukeyHSD.txt")
+      write.table(stat.test[,1:10], file = test.file, row.names = F, col.names = T, quote = F, sep = "\t")
+      dunnett_file <- paste0(name, "/result_dunnett.txt")
+      write.table(stat.test3[,-4:-5], file = dunnett_file, row.names = F, col.names = T, quote = F, sep = "\t")
     }else{
       stat.test <- data %>% group_by(Row.names)
       stat.test <- stat.test %>% t_test(value ~ sample)
       stat.test <- stat.test %>% add_significance()
-      stat.test <- stat.test %>% add_xy_position(scales = "free", step.increase = 0.2)
+      stat.test <- stat.test %>% add_xy_position(scales = "free", step.increase = 0.1)
       image.file <- paste0(paste0(name, "/"), paste0(name, '_Welch_t-test.pdf'))
       pdf(image.file, height = pdf_size, width = pdf_size)
       p <- ggbarplot(data,x = "sample", y = "value", scales = "free",
@@ -164,15 +168,15 @@ autobar <- function(directory, input = "excel"){
                  scales = "free", short.panel.labs = T)+
              stat_pvalue_manual(stat.test,hide.ns = T, size = 3) +
              theme(axis.text.x= element_text(size = 5),
-                            axis.text.y= element_text(size = 7),
-                            panel.background = element_rect(fill = "transparent", size = 0.5),
-                            title = element_text(size = 7),
-                            text = element_text(size = 10)))
+                   axis.text.y= element_text(size = 7),
+                   panel.background = element_rect(fill = "transparent", size = 0.5),
+                   title = element_text(size = 7),
+                   text = element_text(size = 10)))
       dev.off()
       test.file <- paste0(name, "/result_Welch_t-test.txt")
       write.table(stat.test[,1:10], file = test.file, row.names = F, col.names = T, quote = F, sep = "\t")
     }
     file.copy(data.file, to = paste0(name,"/"))
     file.remove(data.file)
-    }
+  }
 }
