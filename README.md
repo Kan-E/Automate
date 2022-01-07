@@ -15,9 +15,9 @@ The replication number is represented by the underbar. Do not use it for anythin
 
 # Output example
 ![example](https://user-images.githubusercontent.com/77435195/148407981-75873d95-eb04-458c-9a99-db769d7efa3f.png)
-Plot example (TukeyHSD)
+Error plot example (TukeyHSD)
 ![example_TukeyHSD](https://user-images.githubusercontent.com/77435195/148402886-16a48e4c-8962-4066-95bc-a6d26e7fada9.png)
-Statics example (TukeyHSD)
+Statical analysis example (TukeyHSD)
 <img width="810" alt="result_TukeyHSD" src="https://user-images.githubusercontent.com/77435195/148403003-658bdf78-dcd9-4186-a392-8e6e5b2f7cc7.png">
 
 # Installation
