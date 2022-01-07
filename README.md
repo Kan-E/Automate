@@ -2,18 +2,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Kan-E/Automate/blob/master/LICENSE.md)
 # automate
 
-`automate` is an easy-to-use R package for automated data visualization from count matrix files.   
-It has three simplyfied functions for creation of barplot, boxplot, and errorplot.
-The condition number is automatically recognized from count matrix file and then the statical analysis is performed.
-In the case of pairwise comparison, Welch t-test is performed.
-In the case of multiple comparison, TukeyHSD and dunnett test are performed.
+`automate` is an easy-to-use R package for automated data visualization from count matrix files.
+It has three simplified functions for the creation of barplot, boxplot, and error plot. The condition number is automatically recognized from the count matrix file and then the statical analysis is performed. In the case of pairwise comparison, Welch's t-test is performed. In the case of multiple comparisons, the Tukey HSD test and Dunnett's test are performed.
 
-If you are macOS user, automate can be combined with automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of folder action is complete, it will become a more useful tool.
+If you are a macOS user, automate can be combined with Automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of the folder action is complete, it will become a more useful tool.
 
 # Input file format
-Input file format must be excel file format (.xlsx) or CSV file format (.csv).
-The cell at first column must be `Row.names`.
-Replication number is represented by underbar. Do not use it for anything else.
+Input file format must be excel file format (.xlsx) or CSV file format (.csv). 
+A1 cell in the excel sheet must be Row.names. 
+The replication number is represented by the underbar. Do not use it for anything else. 
 <img width="890" alt="format example" src="https://user-images.githubusercontent.com/77435195/148402453-e87ce92e-fcf1-4d45-af72-e9d256366bfa.png">
 
 # Output example
