@@ -8,7 +8,7 @@ The condition number is automatically recognized from the count matrix file and 
 In the case of pairwise comparison, Welch's t-test is performed. In the case of multiple comparisons, the Tukey HSD test and Dunnett's test are performed.<br>
 
 If you are a macOS user, automate can be combined with Automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of the folder action is complete, it will become a more useful tool.
-![automate × Automator ](https://user-images.githubusercontent.com/77435195/148648596-f4763b2e-d4f0-4943-88ff-b37f92ef7670.gif)
+![automate2-2](https://user-images.githubusercontent.com/77435195/148652374-dee76aad-bdf0-474a-87a7-2a6eb8e7c3cc.gif)
 
 # Input file format
 Input file format must be excel file format (.xlsx) or CSV file format (.csv). <br>
