@@ -8,6 +8,7 @@ The condition number is automatically recognized from the count matrix file and 
 In the case of pairwise comparison, Welch's t-test is performed. In the case of multiple comparisons, the Tukey HSD test and Dunnett's test are performed.<br>
 
 If you are a macOS user, automate can be combined with Automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of the folder action is complete, it will become a more useful tool.
+__Example: the folder action for automated boxplot (automate × Automator)__
 ![automate-3](https://user-images.githubusercontent.com/77435195/148670686-908874f8-5d69-4ede-af91-b0561624f6a0.gif)
 
 # Input file format
@@ -18,9 +19,9 @@ The replication number is represented by the underbar. Do not use it for anythin
 
 # Output example
 ![example](https://user-images.githubusercontent.com/77435195/148407981-75873d95-eb04-458c-9a99-db769d7efa3f.png)
-Error plot example (TukeyHSD)
+Error plot (TukeyHSD)
 ![example_TukeyHSD](https://user-images.githubusercontent.com/77435195/148402886-16a48e4c-8962-4066-95bc-a6d26e7fada9.png)
-Statical analysis example (TukeyHSD)
+Statical analysis (TukeyHSD)
 <img width="810" alt="result_TukeyHSD" src="https://user-images.githubusercontent.com/77435195/148403003-658bdf78-dcd9-4186-a392-8e6e5b2f7cc7.png">
 
 # Installation
@@ -36,11 +37,14 @@ library(automate)
 library(ggpubr)
 
 autobar(directory,          ## directory including count matrix files
-        input = "excel")    ## One of excel or csv
+        input = "excel",    ## One of excel, csv, or txt
+        test  = TRUE)       ## In the case of FALSE, statical tests are not performed.    
 autobox(directory,          ## directory including count matrix files
-        input = "excel")    ## One of excel or csv
+        input = "excel",    ## One of excel, csv, or txt
+        test  = TRUE)       ## In the case of FALSE, statical tests are not performed.    
 autoerror(directory,        ## directory including count matrix files
-        input = "excel")    ## One of excel or csv
+        input = "excel",    ## One of excel, csv, or txt
+        test  = TRUE)       ## In the case of FALSE, statical tests are not performed.    
 ```
 
 # Reference
