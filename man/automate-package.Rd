@@ -6,6 +6,6 @@
 \alias{automate-package}
 \title{automate: Automate}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+automate is an easy-to-use R package for automated data visualization from count matrix files. It has three simplyfied functions for creation of barplot, boxplot, and errorplot. The condition number is automatically recognized from count matrix file and then the statical analysis is performed. In the case of pairwise comparison, Welch t-test is performed. In the case of multiple comparison, TukeyHSD and dunnett test are performed. If you are macOS user, automate can be combined with automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of folder action is complete, it will become a more useful tool.
 }
 \keyword{internal}

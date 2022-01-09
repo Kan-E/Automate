@@ -62,18 +62,51 @@ autobar <- function(directory, input = "excel"){
     data$value <- as.numeric(data$value)
     data$sample <- factor(data$sample,levels=collist,ordered=TRUE)
 
-    if ((length(rowlist) > 81) && (length(rowlist) <= 100)) pdf_size <- 15
-    if ((length(rowlist) > 64) && (length(rowlist) <= 81)) pdf_size <- 13.5
-    if ((length(rowlist) > 49) && (length(rowlist) <= 64)) pdf_size <- 12
-    if ((length(rowlist) > 36) && (length(rowlist) <= 49)) pdf_size <- 10.5
-    if ((length(rowlist) > 25) && (length(rowlist) <= 36)) pdf_size <- 9
-    if ((length(rowlist) > 16) && (length(rowlist) <= 25)) pdf_size <- 7.5
-    if ((length(rowlist) > 12) && (length(rowlist) <= 16)) pdf_size <- 6
-    if ((length(rowlist) > 9) && (length(rowlist) <= 12)) pdf_size <- 6
-    if ((length(rowlist) > 6) && (length(rowlist) <= 9)) pdf_size <- 5
-    if ((length(rowlist) > 1) && (length(rowlist) <= 6)) pdf_size <- 4
-    if (length(rowlist) == 1) pdf_size <- 3
-    if (length(rowlist) > 100) pdf_size <- 16.5
+    if ((length(rowlist) > 81) && (length(rowlist) <= 100))
+    {pdf_hsize <- 15
+    pdf_wsize <- 15}
+    if ((length(rowlist) > 64) && (length(rowlist) <= 81))
+    {pdf_hsize <- 13.5
+    pdf_wsize <- 13.5}
+    if ((length(rowlist) > 49) && (length(rowlist) <= 64))
+    {pdf_hsize <- 12
+    pdf_wsize <- 12}
+    if ((length(rowlist) > 36) && (length(rowlist) <= 49))
+    {pdf_hsize <- 10.5
+    pdf_wsize <- 10.5}
+    if ((length(rowlist) > 25) && (length(rowlist) <= 36))
+    {pdf_hsize <- 9
+    pdf_wsize <- 9}
+    if ((length(rowlist) > 16) && (length(rowlist) <= 25))
+    {pdf_hsize <- 7.5
+    pdf_wsize <- 7.5}
+    if ((length(rowlist) > 12) && (length(rowlist) <= 16))
+    {pdf_hsize <- 6
+    pdf_wsize <- 6}
+    if ((length(rowlist) > 9) && (length(rowlist) <= 12))
+    {pdf_hsize <- 5
+    pdf_wsize <- 6}
+    if ((length(rowlist) > 6) && (length(rowlist) <= 9))
+    {pdf_hsize <- 5
+    pdf_wsize <- 4.5}
+    if ((length(rowlist) > 4) && (length(rowlist) <= 6))
+    {pdf_hsize <- 4
+    pdf_wsize <- 6}
+    if (length(rowlist) == 4)
+    {pdf_hsize <- 4
+    pdf_wsize <- 4}
+    if (length(rowlist) == 3)
+    {pdf_hsize <- 2
+    pdf_wsize <- 6}
+    if (length(rowlist) == 2)
+    {pdf_hsize <- 2
+    pdf_wsize <- 4}
+    if (length(rowlist) == 1)
+    {pdf_hsize <- 2
+    pdf_wsize <- 2}
+    if (length(rowlist) > 100)
+    {pdf_hsize <- 16.5
+    pdf_wsize <- 16.5}
 
     df <- data.frame(matrix(rep(NA, 11), nrow=1))[numeric(0), ]
     colnames(df) <- c("Row.names", "group1", "group2", "term", "null.value","Std.Error","coefficients","t.value","p.adj","xmin", "xmax")
@@ -125,7 +158,7 @@ autobar <- function(directory, input = "excel"){
     stat.test3 <- stat.test3 %>% add_significance("p.adj")
 
     image.file <- paste0(paste0(name, "/"), paste0(name, '_TukeyHSD.pdf'))
-    pdf(image.file, height = pdf_size, width = pdf_size)
+    pdf(image.file, height = pdf_hsize, width = pdf_wsize)
     p <- ggbarplot(data,x = "sample", y = "value", scales = "free",
                    facet.by = "Row.names", fill = "sample",add = c("mean_se", "jitter"),
                    add.params = list(size=0.5), xlab = FALSE, legend = "none")
@@ -137,7 +170,7 @@ autobar <- function(directory, input = "excel"){
                  title = element_text(size = 7),text = element_text(size = 10)))
     dev.off()
     image.file2 <- paste0(paste0(name, "/"), paste0(name, '_dunnett.pdf'))
-    pdf(image.file2, height = pdf_size, width = pdf_size)
+    pdf(image.file2, height = pdf_hsize, width = pdf_wsize)
     p <- ggbarplot(data,x = "sample", y = "value",
                            scales = "free", fill = "sample",
                            add = c("mean_se", "jitter"), facet.by = "Row.names",
@@ -159,7 +192,7 @@ autobar <- function(directory, input = "excel"){
       stat.test <- stat.test %>% add_significance()
       stat.test <- stat.test %>% add_xy_position(scales = "free", step.increase = 0.2)
       image.file <- paste0(paste0(name, "/"), paste0(name, '_Welch_t-test.pdf'))
-      pdf(image.file, height = pdf_size, width = pdf_size)
+      pdf(image.file, height = pdf_hsize, width = pdf_wsize)
       p <- ggbarplot(data,x = "sample", y = "value", scales = "free",
                      facet.by = "Row.names", fill = "sample",
                      add = c("mean_se", "jitter"),
