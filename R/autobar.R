@@ -62,7 +62,8 @@ autobar <- function(directory, input = "excel"){
     data$value <- as.numeric(data$value)
     data$sample <- factor(data$sample,levels=collist,ordered=TRUE)
 
-    if ((length(rowlist) > 81) && (length(rowlist) <= 100))
+
+    if ((length(rowlist) > 81) && (length(rowlist) <= 200))
     {pdf_hsize <- 15
     pdf_wsize <- 15}
     if ((length(rowlist) > 64) && (length(rowlist) <= 81))
@@ -104,9 +105,9 @@ autobar <- function(directory, input = "excel"){
     if (length(rowlist) == 1)
     {pdf_hsize <- 2
     pdf_wsize <- 2}
-    if (length(rowlist) > 100)
-    {pdf_hsize <- 16.5
-    pdf_wsize <- 16.5}
+    if (length(rowlist) > 200)
+    {pdf_hsize <- 30
+    pdf_wsize <- 30}
 
     df <- data.frame(matrix(rep(NA, 11), nrow=1))[numeric(0), ]
     colnames(df) <- c("Row.names", "group1", "group2", "term", "null.value","Std.Error","coefficients","t.value","p.adj","xmin", "xmax")
