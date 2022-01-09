@@ -29,13 +29,15 @@
 #' @importFrom stats aov
 #' @import RColorBrewer
 #' @param directory Directory including count matrix files
-#' @param input excel or csv
+#' @param input excel, csv, or txt
+#' @param test The default setting is TRUE. In the case of FALSE, statical tests are not performed.
 #' @export
 #'
-autobox <- function(directory, input = "excel"){
+autobox <- function(directory, input = "excel", test = TRUE){
   setwd(directory)
   if(input == "excel") files <- list.files(pattern = "*.xlsx")
   if(input == "csv") files <- list.files(pattern = "*.csv")
+  if(input == "txt") files <- list.files(pattern = "*.txt")
   files <- gsub("\\..+$", "", files)
 
   for (name in files) {
@@ -44,9 +46,11 @@ autobox <- function(directory, input = "excel"){
     dir.create(name,showWarnings = F)
     if(input == "excel") data.file <- paste(name, '.xlsx', sep = '')
     if(input == "csv") data.file <- paste(name, '.csv', sep = '')
+    if(input == "txt") data.file <- paste(name, '.txt', sep = '')
     print(data.file)
     if(input == "excel") data <- read.xls(data.file)
     if(input == "csv") data <- read.csv(data.file,header = T, sep=",")
+    if(input == "txt") data <- read.table(data.file,header = T, sep="\t")
     collist <- gsub("\\_.+$", "", colnames(data))
     collist <- unique(collist[-1])
     rowlist <- gsub("\\_.+$", "", data[,1])
@@ -104,6 +108,7 @@ autobox <- function(directory, input = "excel"){
     {pdf_hsize <- 30
     pdf_wsize <- 30}
 
+    if (test == TRUE){
     df <- data.frame(matrix(rep(NA, 11), nrow=1))[numeric(0), ]
     colnames(df) <- c("Row.names", "group1", "group2", "term", "null.value","Std.Error","coefficients","t.value","p.adj","xmin", "xmax")
     if (length(collist) >= 3){
@@ -209,6 +214,22 @@ autobox <- function(directory, input = "excel"){
       test.file <- paste0(name, "/result_Welch_t-test.txt")
       write.table(stat.test[,1:10], file = test.file, row.names = F, col.names = T, quote = F, sep = "\t")
     }
+    }else{
+          image.file <- paste0(paste0(name, "/"), paste0(name, '.pdf'))
+          pdf(image.file, height = pdf_hsize, width = pdf_wsize)
+          p <- ggboxplot(data,x = "sample", y = "value",fill = "sample",
+                         scales = "free", add = "jitter",
+                         add.params = list(size=0.5),
+                         xlab = FALSE, legend = "none", ylim = c(0, NA))
+          plot(facet(p, facet.by = "Row.names",
+                     panel.labs.background = list(fill = "transparent", color = "transparent"),
+                     scales = "free", short.panel.labs = T)+
+                 theme(axis.text.x= element_text(size = 5),
+                       axis.text.y= element_text(size = 7),
+                       panel.background = element_rect(fill = "transparent", size = 0.5),
+                       title = element_text(size = 7),text = element_text(size = 10)))
+          dev.off()
+        }
     file.copy(data.file, to = paste0(name,"/"))
     file.remove(data.file)
   }

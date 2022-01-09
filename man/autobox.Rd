@@ -4,12 +4,14 @@
 \alias{autobox}
 \title{Automated boxplot}
 \usage{
-autobox(directory, input = "excel")
+autobox(directory, input = "excel", test = TRUE)
 }
 \arguments{
 \item{directory}{Directory including count matrix files}
 
-\item{input}{excel or csv}
+\item{input}{excel, csv, or txt}
+
+\item{test}{The default setting is TRUE. In the case of FALSE, statical tests are not performed.}
 }
 \description{
 Automated boxplot
