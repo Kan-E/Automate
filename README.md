@@ -7,7 +7,7 @@ It has three simplified functions for the creation of barplot, boxplot, and erro
 The condition number is automatically recognized from the count matrix file and then the statical analysis is performed. <br>
 In the case of pairwise comparison, Welch's t-test is performed. In the case of multiple comparisons, the Tukey HSD test and Dunnett's test are performed.<br>
 
-If you are a macOS user, automate can be combined with Automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of the folder action is complete, it will become a more useful tool.<br>
+If you are a macOS user, automate can be combined with Automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of the folder action is complete, the functions of `automate` will run in the background without even opening R.<br>
 
 __Example: the folder action for automated boxplot (automate × Automator)__
 ![automate-3](https://user-images.githubusercontent.com/77435195/148670686-908874f8-5d69-4ede-af91-b0561624f6a0.gif)
