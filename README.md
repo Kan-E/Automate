@@ -5,7 +5,7 @@
 `automate` is an easy-to-use R package for automated data visualization from count matrix files.<br>
 It has three simplified functions for the creation of barplot, boxplot, and error plot. <br>
 The condition number is automatically recognized from the count matrix file and then the statical analysis is performed. <br>
-In the case of pairwise comparison, Welch's t-test is performed. In the case of multiple comparisons, the Tukey HSD test and Dunnett's test are performed.<br>
+In the case of just 2 conditions (pairwise comparison), Welch's t-test is performed. In the case of more than 3 conditions (multiple comparisons), the Tukey HSD test and Dunnett's test are performed.<br>
 
 If you are a macOS user, automate can be combined with Automator, which is a visual scripting technology developed by Apple for automating application workflows. Once the setting of the folder action is complete, the functions of `automate` will run in the background without even opening R.<br>
 
@@ -13,7 +13,7 @@ __Example: the folder action for automated boxplot (automate × Automator)__
 ![automate-3](https://user-images.githubusercontent.com/77435195/148670686-908874f8-5d69-4ede-af91-b0561624f6a0.gif)
 
 # Input file format
-Input file format must be excel file format (.xlsx) or CSV file format (.csv). <br>
+Input file format must be excel file format (.xlsx), tab-separated text file format (.txt), or CSV file format (.csv). <br>
 A1 cell in the excel sheet must be __Row.names__. <br>
 The replication number is represented by the underbar. Do not use it for anything else. <br>
 <img width="890" alt="format example" src="https://user-images.githubusercontent.com/77435195/148402453-e87ce92e-fcf1-4d45-af72-e9d256366bfa.png">
